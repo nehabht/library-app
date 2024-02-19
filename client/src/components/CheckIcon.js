@@ -1,9 +1,9 @@
-const Auth = () => {
+const CheckIcon = () => {
     return (
       <div >
       </div>
     )
   }
   
-  export default Auth
+  export default CheckIcon
   

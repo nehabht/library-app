@@ -1,9 +1,9 @@
-const Auth = () => {
+const Modal = () => {
     return (
       <div >
       </div>
     )
   }
   
-  export default Auth
+  export default Modal
   
