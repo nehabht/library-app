@@ -1,6 +1,69 @@
-const Modal = () => {
+import {useState} from 'react'
+
+
+const Modal = ({mode, setShowModal}) => {
+
+  const editMode = mode === 'edit' ? true : false //for date
+
+
+  const [data, setData] =useState({
+    user_mail:"",
+    title:"",
+    author: "",
+    isbn: "",
+    plot: "",
+    progress:"",
+    date: editMode ? "" : new Date()
+  })
+
+
+  const handleChange = (e) => {
+    //console.log('changing...', e)
+    const {name, value } = e.target
+
+    setData(data => ({
+      ...data,
+      [name] : value
+    }))
+
+    console.log(data)
+  }
+
     return (
-      <div >
+      <div className="overlay">
+        <div className="modal">
+          <div className="form-title-container">
+              <h3>Please {mode} your book</h3>
+              <button onClick={() => setShowModal(false)}>X</button>
+
+            </div>
+
+            <form>
+             
+              <input
+                required
+                name="title"
+                maxLength={30}
+                placeholder="Book name"
+                value={data.title}
+                onChange={handleChange}
+              />
+              <br/>
+              How Many Reads?
+              <input
+                required
+                name="progress"
+                type="range"
+                min="1"
+                max="100"
+                value={data.progress}
+                onChange={handleChange}
+              />
+
+              <input className={mode} type="submit"/>
+            </form>
+
+        </div>
       </div>
     )
   }
