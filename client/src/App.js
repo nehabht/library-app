@@ -35,8 +35,8 @@ const App = () => {
 
   return (
     <div className="app">
-      <BookListHeader listName={'Books List'}/>
-      {sortedBooks?.map((book) => <BookListItem key={book.id} book={book}/>)}
+      <BookListHeader listName={'Books List'} getData={getData}/>
+      {sortedBooks?.map((book) => <BookListItem key={book.id} book={book} getData={getData}/>)}
     </div>
   )
 }

@@ -1,13 +1,13 @@
 import {useState} from 'react'
 
 
-const Modal = ({mode, setShowModal, book}) => {
+const Modal = ({mode, setShowModal, getData, book}) => {
 
   const editMode = mode === 'edit' ? true : false //for date
 
-
+  //crate and edit data modal
   const [data, setData] =useState({
-    user_mail: editMode ? book.user_email : null,
+    user_email: editMode ? book.user_email : "neha@gmail.com",
     title: editMode ? book.title : null,
     author: editMode ? book.author : null,
     isbn: editMode ? book.isbn : null,
@@ -15,6 +15,26 @@ const Modal = ({mode, setShowModal, book}) => {
     progress:editMode ? book.progress : 1,
     date: editMode ? "" : new Date()
   })
+
+  //send data to db
+  const postData = async (e) => {
+    e.preventDefault()
+    try{
+      const response = await fetch(`http://localhost:8000/books/`,{
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      })
+      if (response.status ===201) {
+        console.log("Book added successfully!")
+        setShowModal(false)
+        getData()
+      }
+      //console.log(response)
+    }catch(err) {
+      console.log(err)
+    }
+  }
 
 
   const handleChange = (e) => {
@@ -60,7 +80,8 @@ const Modal = ({mode, setShowModal, book}) => {
                 onChange={handleChange}
               />
 
-              <input className={mode} type="submit"/>
+                {/* if create mode postdata */}
+              <input className={mode} type="submit" onClick={editMode ? '': postData}/>
             </form>
 
         </div>

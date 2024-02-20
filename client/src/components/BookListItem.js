@@ -4,7 +4,7 @@ import {useState} from "react"
 import Modal from './Modal'
 
 
-const BookListItem = ({book}) => {
+const BookListItem = ({book, getData}) => {
 
   const [showModal, setShowModal] = useState(false)
 
@@ -21,7 +21,7 @@ const BookListItem = ({book}) => {
           <button className="delete">DELETE</button>
         </div>
 
-        {showModal && <Modal mode={'edit'} setShowModal={setShowModal} book={book} />}
+        {showModal && <Modal mode={'edit'} setShowModal={setShowModal} getData={getData} book={book} />}
         
       </li>
     )
