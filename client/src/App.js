@@ -1,6 +1,8 @@
 
 import BookListHeader from './components/BookListHeader'
+import BookListItem from './components/BookListItem'
 import { useEffect, useState } from 'react'
+
 
 
 const App = () => {
@@ -10,7 +12,7 @@ const App = () => {
 
   //get data
   const getData = async () => {
-    
+
     try {
       const response = await fetch(`http://localhost:8000/books/${userEmail}`)
       const json = await response.json()
@@ -25,11 +27,16 @@ const App = () => {
   
   console.log(books)
 
+  //Sort books by date
+  const sortedBooks = books?.sort((a,b) => new Date(a.date) - new Date(b.date))
+
+
 
 
   return (
     <div className="app">
       <BookListHeader listName={'Books List'}/>
+      {sortedBooks?.map((book) => <BookListItem key={book.id} book={book}/>)}
     </div>
   )
 }
