@@ -54,4 +54,24 @@ app.post('/books', (req, res) => {
     }
 });
 
+
+//edit a book
+app.put('/books/:id', async (req, res) => {
+    const { id } = req.params;
+    const { user_email, title, author, isbn, plot, progress, date } = req.body;
+  
+    console.log('PUT request received:', req.body); 
+  
+    try {
+      const editBook = await pool.query(
+        'UPDATE books SET user_email = $1, title = $2, author = $3, isbn = $4, plot= $5, progress= $6, date= $7 WHERE id = $8;',
+        [user_email, title, author, isbn, plot, progress, date, id]
+      );
+      res.json(editBook);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+
 app.listen(PORT, ()=> console.log(`Server running on PORT ${PORT}`))

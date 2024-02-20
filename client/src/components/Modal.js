@@ -5,6 +5,7 @@ const Modal = ({mode, setShowModal, getData, book}) => {
 
   const editMode = mode === 'edit' ? true : false //for date
 
+
   //crate and edit data modal
   const [data, setData] =useState({
     user_email: editMode ? book.user_email : "neha@gmail.com",
@@ -13,7 +14,7 @@ const Modal = ({mode, setShowModal, getData, book}) => {
     isbn: editMode ? book.isbn : null,
     plot: editMode ? book.plot : null,
     progress:editMode ? book.progress : 1,
-    date: editMode ? "" : new Date()
+    date: editMode ? book.date : new Date()
   })
 
   //send data to db
@@ -30,12 +31,31 @@ const Modal = ({mode, setShowModal, getData, book}) => {
         setShowModal(false)
         getData()
       }
-      //console.log(response)
     }catch(err) {
       console.log(err)
     }
   }
 
+
+  //edit data
+  const editData = async (e) => {
+    e.preventDefault();
+  
+    try {
+      const response = await fetch(`http://localhost:8000/books/${book.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      setShowModal(false);
+      console.log('Book updated');
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  
 
   const handleChange = (e) => {
     //console.log('changing...', e)
@@ -81,7 +101,7 @@ const Modal = ({mode, setShowModal, getData, book}) => {
               />
 
                 {/* if create mode postdata */}
-              <input className={mode} type="submit" onClick={editMode ? '': postData}/>
+              <input className={mode} type="submit" onClick={editMode ? editData: postData}/>
             </form>
 
         </div>

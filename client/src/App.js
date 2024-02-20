@@ -28,7 +28,7 @@ const App = () => {
   console.log(books)
 
   //Sort books by date
-  const sortedBooks = books?.sort((a,b) => new Date(a.date) - new Date(b.date))
+  const sortedBooks = books?.sort((b,a) => new Date(a.date) - new Date(b.date))
 
 
 
