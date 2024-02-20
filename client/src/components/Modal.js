@@ -1,18 +1,18 @@
 import {useState} from 'react'
 
 
-const Modal = ({mode, setShowModal}) => {
+const Modal = ({mode, setShowModal, book}) => {
 
   const editMode = mode === 'edit' ? true : false //for date
 
 
   const [data, setData] =useState({
-    user_mail:"",
-    title:"",
-    author: "",
-    isbn: "",
-    plot: "",
-    progress:"",
+    user_mail: editMode ? book.user_email : null,
+    title: editMode ? book.title : null,
+    author: editMode ? book.author : null,
+    isbn: editMode ? book.isbn : null,
+    plot: editMode ? book.plot : null,
+    progress:editMode ? book.progress : 1,
     date: editMode ? "" : new Date()
   })
 
@@ -49,7 +49,7 @@ const Modal = ({mode, setShowModal}) => {
                 onChange={handleChange}
               />
               <br/>
-              How Many Reads?
+              How Many Reads? {data.progress}
               <input
                 required
                 name="progress"
