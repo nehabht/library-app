@@ -8,6 +8,14 @@ const BookListItem = ({book, getData}) => {
 
   const [showModal, setShowModal] = useState(false)
 
+  // confir or not before deleting
+  const confirmDelete = () => {
+    const shouldDelete = window.confirm("Are you sure you want to delete the book?");
+    if (shouldDelete) {
+      deleteItem();
+    }
+  };
+
   //delete book
   const deleteItem = async() => {
     try {
@@ -34,9 +42,9 @@ const BookListItem = ({book, getData}) => {
         </div>
 
         <div className='button-container'>
-          <button className="edit" onClick={() => setShowModal(true)}>EDIT</button>
-          <button className="delete" onClick={ deleteItem}>DELETE</button>
-        </div>
+        <button className="edit" onClick={() => setShowModal(true)}>EDIT</button>
+        <button className="delete" onClick={confirmDelete}>DELETE</button>
+      </div>
 
         {showModal && <Modal mode={'edit'} setShowModal={setShowModal} getData={getData} book={book} />}
         
