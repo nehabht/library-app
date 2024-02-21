@@ -47,9 +47,12 @@ const Modal = ({mode, setShowModal, getData, book}) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-
-      setShowModal(false);
-      console.log('Book updated');
+      
+      if (response.status === 200) {
+        getData()
+        setShowModal(false);
+        console.log('Book updated');
+      }
     } catch (err) {
       console.error(err);
     }

@@ -8,6 +8,23 @@ const BookListItem = ({book, getData}) => {
 
   const [showModal, setShowModal] = useState(false)
 
+  //delete book
+  const deleteItem = async() => {
+    try {
+      const response = await fetch(`http://localhost:8000/books/${book.id}`, {
+        method: 'DELETE',
+      })
+      console.log('Book deleted');
+      if (response.status === 200) {
+        getData()
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+
+
     return (
       <li className="list-item">
         <div className="info-container">
@@ -18,7 +35,7 @@ const BookListItem = ({book, getData}) => {
 
         <div className='button-container'>
           <button className="edit" onClick={() => setShowModal(true)}>EDIT</button>
-          <button className="delete">DELETE</button>
+          <button className="delete" onClick={ deleteItem}>DELETE</button>
         </div>
 
         {showModal && <Modal mode={'edit'} setShowModal={setShowModal} getData={getData} book={book} />}

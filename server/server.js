@@ -74,4 +74,21 @@ app.put('/books/:id', async (req, res) => {
     }
   });
 
+
+//delete
+app.delete('/books/:id', async (req,res) => {
+    const {id} = req.params;
+
+    try{
+        const deleteBook = await pool.query('DELETE FROM books WHERE id=$1;', [id])
+        res.json(deleteBook)
+
+
+    }catch(err){
+        console.log(err)
+    }
+}) 
+
+
+
 app.listen(PORT, ()=> console.log(`Server running on PORT ${PORT}`))
