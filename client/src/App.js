@@ -1,6 +1,7 @@
 
 import BookListHeader from './components/BookListHeader'
 import BookListItem from './components/BookListItem'
+import Auth from './components/Auth'
 import { useEffect, useState } from 'react'
 
 
@@ -9,6 +10,8 @@ const App = () => {
 
   const userEmail = 'neha@gmail.com'
   const [books, setBooks ] = useState(null)
+
+  const authToken = false
 
   //get data
   const getData = async () => {
@@ -23,7 +26,13 @@ const App = () => {
     }
   }
 
-  useEffect(() => getData, [])
+
+  //get data only if token exists
+  useEffect(() => {
+    if(authToken) {
+      getData()
+    }
+  })
   
   console.log(books)
 
@@ -31,12 +40,16 @@ const App = () => {
   const sortedBooks = books?.sort((b,a) => new Date(a.date) - new Date(b.date))
 
 
-
-
   return (
     <div className="app">
-      <BookListHeader listName={'Book List '} getData={getData}/>
-      {sortedBooks?.map((book) => <BookListItem key={book.id} book={book} getData={getData}/>)}
+       {/* if authToken doesnt exists show login or signup  */}
+      {!authToken && <Auth/>}
+
+      {authToken &&
+      <>
+        <BookListHeader listName={'Book List '} getData={getData}/>
+        {sortedBooks?.map((book) => <BookListItem key={book.id} book={book} getData={getData}/>)}
+      </>}
     </div>
   )
 }

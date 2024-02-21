@@ -24,14 +24,18 @@ body {
 
 .button-container button,
 .edit,
-.delete {
+.delete,
+.signup,
+.login {
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s, border 0.3s;
 }
 
 .button-container button,
 .edit,
-.delete {
+.delete
+.signup,
+.login {
     margin: 0 8px;
     padding: 8px 16px;
     border: none;
@@ -86,18 +90,20 @@ input {
 }
 
 .create,
-.create {
+.edit {
     border: 2px solid lightgreen;
     padding: 10px;
     background-color: transparent;
     color: lightgreen;
 }
 
-.create:hover {
+.create:hover,
+.edit:hover {
     background-color: lightgreen;
     color: #fff;
-    border: 2px solid #fff;
 }
+
+
 
 
 
@@ -186,3 +192,27 @@ input {
 }
 
 
+/* ------------------- auth------------- */
+
+
+.auth-container-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 30px;    
+
+}
+
+.auth-controller form{
+    width:50%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+
+}
+
+.auth-options button.signup,
+.auth-options button.login{
+    margin-top: 16px
+}
