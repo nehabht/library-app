@@ -34,7 +34,7 @@ const App = () => {
     if(authToken) {
       getData()
     }
-  })
+  }, [])
   
   console.log(books)
 

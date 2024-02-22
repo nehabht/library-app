@@ -70,7 +70,7 @@ const Modal = ({mode, setShowModal, getData, book}) => {
       [name] : value
     }))
 
-    console.log(data)
+
   }
 
     return (
@@ -89,7 +89,7 @@ const Modal = ({mode, setShowModal, getData, book}) => {
                 name="title"
                 maxLength={30}
                 placeholder="Book name"
-                value={data.title}
+                value={data.title || ""} 
                 onChange={handleChange}
               />
               <br/>
