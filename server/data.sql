@@ -11,8 +11,10 @@ create table books (
     date VARCHAR(300)
 );
 
-create table users ({
+create table users (
+    name VARCHAR(30),
+    lastname VARCHAR(30),
     email VARCHAR(225) PRIMARY KEY,
     hashed_password VARCHAR(225)
-});
+);
 

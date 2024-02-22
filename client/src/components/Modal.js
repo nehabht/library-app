@@ -1,14 +1,15 @@
 import {useState} from 'react'
-
+import { useCookies } from 'react-cookie';
+ 
 
 const Modal = ({mode, setShowModal, getData, book}) => {
-
+  const [cookies, setCookies, removeCookie] =useCookies(null)
   const editMode = mode === 'edit' ? true : false //for date
-
+  
 
   //crate and edit data modal
   const [data, setData] =useState({
-    user_email: editMode ? book.user_email : "neha@gmail.com",
+    user_email: editMode ? book.user_email : cookies.Email,
     title: editMode ? book.title : null,
     author: editMode ? book.author : null,
     isbn: editMode ? book.isbn : null,
