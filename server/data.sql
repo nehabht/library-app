@@ -11,6 +11,8 @@ create table books (
     date VARCHAR(300)
 );
 
+ALTER TABLE books ADD COLUMN deleted_at TIMESTAMP;
+
 create table users (
     name VARCHAR(30),
     lastname VARCHAR(30),

@@ -25,7 +25,7 @@ app.get('/books/:userEmail', async (req, res) => {
     //console.log(userEmail)
 
     try {
-        const books = await pool.query('SELECT * FROM books WHERE user_email = $1', [userEmail])
+        const books = await pool.query('SELECT * FROM books WHERE user_email = $1 AND deleted_at IS NULL', [userEmail])
         res.json(books.rows)
     }catch (err){
         console.error(err)
@@ -77,12 +77,12 @@ app.put('/books/:id', async (req, res) => {
   });
 
 
-//delete
+//delete - soft 
 app.delete('/books/:id', async (req,res) => {
     const {id} = req.params;
 
     try{
-        const deleteBook = await pool.query('DELETE FROM books WHERE id=$1;', [id])
+        const deleteBook = await pool.query('UPDATE books SET deleted_at = CURRENT_TIMESTAMP WHERE id = $1;', [id])
         res.json(deleteBook)
 
 
